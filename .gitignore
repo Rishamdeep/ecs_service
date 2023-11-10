@@ -6,3 +6,5 @@ terraform/terraform.tfstate.backup
 secret_vars.tfvars
 cb_env_vars.txt
 .DS_Store
+output/artifacts.zip
+codebuild_build.sh
