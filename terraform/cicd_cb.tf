@@ -44,4 +44,3 @@ resource "aws_codebuild_project" "DockerBuildTF" {
   }
 }
 
-container_name

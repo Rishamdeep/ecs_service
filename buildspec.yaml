@@ -17,6 +17,10 @@ phases:
       - docker push $ecr_url/$ecr_repo:$tag.$CODEBUILD_BUILD_NUMBER
       - aws ecs describe-task-definition --task-definition $task_def | jq '.taskDefinition' > taskdef.json
       - cat taskdef.json
+      - export full_image_path=$ecr_url/$ecr_repo:$tag.$CODEBUILD_BUILD_NUMBER
+      - echo $full_image_path
+      - jq '.containerDefinitions[0].image = env.full_image_path' task_def.json
+      - cat taskdef.json
       - envsubst < appspec_template.yaml > appspec.yaml
       - cat appspec.yaml
 artifacts:
