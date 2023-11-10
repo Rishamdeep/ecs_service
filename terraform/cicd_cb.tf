@@ -32,7 +32,10 @@ resource "aws_codebuild_project" "DockerBuildTF" {
       name  = "task_def"
       value = aws_ecs_task_definition.ecs_task_def.family
     }    
-
+    environment_variable {
+      name  = "container_name"
+      value = var.container_name
+    }   
   }
   service_role = aws_iam_role.build_role.arn
   source {
@@ -40,3 +43,5 @@ resource "aws_codebuild_project" "DockerBuildTF" {
     # buildspec = "${file("cicd_buildspec.yaml")}"
   }
 }
+
+container_name

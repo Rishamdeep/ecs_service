@@ -16,7 +16,9 @@ phases:
       - docker tag $ecr_repo:$tag.$CODEBUILD_BUILD_NUMBER $ecr_url/$ecr_repo:$tag.$CODEBUILD_BUILD_NUMBER
       - docker push $ecr_url/$ecr_repo:$tag.$CODEBUILD_BUILD_NUMBER
       - aws ecs describe-task-definition --task-definition $task_def | jq '.taskDefinition' > taskdef.json
+      - cat taskdef.json
       - envsubst < appspec_template.yaml > appspec.yaml
+      - cat appspec.yaml
 artifacts:
   files:
     - appspec.yaml
