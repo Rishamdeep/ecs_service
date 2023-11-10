@@ -1,0 +1,23 @@
+version: 0.2
+
+phases:
+  build:
+    commands:
+      - yum install jq -y
+      - echo $CODEBUILD_BUILD_ARN 
+      - my_region=$(echo $CODEBUILD_BUILD_ARN | cut -d":" -f4)
+      - echo $my_region
+      - my_account=$(echo $CODEBUILD_BUILD_ARN | cut -d":" -f5)
+      - echo $my_account
+      - echo $CODEBUILD_BUILD_NUMBER
+      - echo Build started on `date`
+      - docker build . -t $ecr_repo:$tag.$CODEBUILD_BUILD_NUMBER
+      - aws ecr get-login-password --region $region | docker login --username AWS --password-stdin $ecr_url
+      - docker tag $ecr_repo:$tag.$CODEBUILD_BUILD_NUMBER $ecr_url/$ecr_repo:$tag.$CODEBUILD_BUILD_NUMBER
+      - docker push $ecr_url/$ecr_repo:$tag.$CODEBUILD_BUILD_NUMBER
+      - aws ecs describe-task-definition --task-definition $task_def | jq '.taskDefinition' > taskdef.json
+      - envsubst < appspec_template.yaml > appspec.yaml
+artifacts:
+  files:
+    - appspec.yaml
+    - taskdef.json

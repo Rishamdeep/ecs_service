@@ -1,0 +1,11 @@
+Resources:
+  - TargetService:
+      Type: AWS::ECS::Service
+      Properties:
+        TaskDefinition: arn:aws:ecs:$region:$aws_account:task-definition/$task_def        #"task-definition-ARN"
+        LoadBalancerInfo: 
+          ContainerName: $container_name
+          ContainerPort: 80
+
+
+# arn:aws:ecs:$my_region:$my_account:task-definition/$task_def
