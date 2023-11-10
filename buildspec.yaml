@@ -19,7 +19,7 @@ phases:
       - cat taskdef.json
       - export full_image_path=$ecr_url/$ecr_repo:$tag.$CODEBUILD_BUILD_NUMBER
       - echo $full_image_path
-      - jq '.containerDefinitions[0].image = env.full_image_path' task_def.json > temp.json && mv temp.json task_def.json
+      - jq '.containerDefinitions[0].image = env.full_image_path' taskdef.json > temp.json && mv temp.json taskdef.json
       - cat taskdef.json
       - envsubst < appspec_template.yaml > appspec.yaml
       - cat appspec.yaml
