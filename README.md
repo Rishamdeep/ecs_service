@@ -22,4 +22,13 @@ ecr_url="YOUR_VALUE"
 policy_arn="YOUR_VALUE"
 
 
-
+## improvements or feature to add in future
+- add lifecycle hooks to add testing before deploying or switching traffic.
+- improve quality of naming the resources
+- Think about how to do initial terraform deployment though pipeline or by some other mean which is more reliable and colaborative than local terminal
+- Can add another container to the task such as a sidecar to collects for services like datadog
+- Can add manaul approval step if required in the pipeline before deployment.
+- Improve the quiality of this readme file.
+- Add s3 backend for terraform state file storage
+- Review IAM permissions to make sure they are alligned with Least Priviledge Principle.
+- Add an example to readme to show how to use this project as a terraform module.
